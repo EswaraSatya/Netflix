@@ -27,7 +27,7 @@ export const Nav = () => {
         <img
           className="nav_avatar"
           alt="netflix avatar"
-          src="  https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
+          src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"
         />
       </div>
     </div>

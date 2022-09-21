@@ -9,13 +9,13 @@ function App() {
   return (
     <div className="app">
       <Router>
-        {!user ? (
+        {/* {!user ? (
           <LoginScreen />
-        ) : (
-          <Routes>
-            <Route path="/" element={<HomeScreen />} />
-          </Routes>
-        )}
+        ) : ( */}
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+        </Routes>
+        {/* )} */}
       </Router>
     </div>
   );
