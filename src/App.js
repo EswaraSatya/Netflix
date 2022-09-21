@@ -1,21 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { HomeScreen } from "./screens/HomeScreen";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { LoginScreen } from "./screens/LoginScreen";
+import { auth } from "./firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout, selectUser } from "./features/userSlice";
+import { ProfileScreen } from "./screens/ProfileScreen";
 
 function App() {
-  const user = null;
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        //log in
+        dispatch(
+          login({
+            uid: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
+        console.log(userAuth);
+      } else {
+        // logout
+        dispatch(logout());
+      }
+    });
+    return unsubscribe;
+  }, [dispatch]);
+
   return (
     <div className="app">
       <Router>
-        {/* {!user ? (
+        {!user ? (
           <LoginScreen />
-        ) : ( */}
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-        </Routes>
-        {/* )} */}
+        ) : (
+          <Routes>
+            <Route path="/profile" element={<ProfileScreen />} />
+            <Route path="/" element={<HomeScreen />} />
+          </Routes>
+        )}
       </Router>
     </div>
   );
